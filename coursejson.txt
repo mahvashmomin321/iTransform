@@ -81,11 +81,13 @@
                     "moduleDetails": [
                         {
                             "title": "Objects",
-                            "description": "Let us now look deep into what are objects. If we consider the real-world, we can find many objects around us, cars, dogs, humans, etc. All these objects have a state and a behavior.\n If we consider a dog, then its state is - name, breed, color, and the behavior is - barking, wagging the tail, running.\n If you compare the software object with a real-world object, they have very similar characteristics.\n Software objects also have a state and a behavior. A software object's state is stored in fields and behavior is shown via methods.\n So in software development, methods operate on the internal state of an object and the object-to-object communication is done via methods."
+                            "description": "Let us now look deep into what are objects. If we consider the real-world, we can find many objects around us, cars, dogs, humans, etc. All these objects have a state and a behavior.\n If we consider a dog, then its state is - name, breed, color, and the behavior is - barking, wagging the tail, running.\n If you compare the software object with a real-world object, they have very similar characteristics.\n Software objects also have a state and a behavior. A software object's state is stored in fields and behavior is shown via methods.\n So in software development, methods operate on the internal state of an object and the object-to-object communication is done via methods.",
+                            "moduleImage": "/assets/images/java-object.jpg"
                         },
                         {
                             "title": "Classes",
                             "description": "A class is a blueprint from which individual objects are created.\n Following is a sample of a class.",
+                            "moduleImage": "/assets/images/class-in-java.png",
                             "subModule": [
                                 {
                                     "subtitle" : "Local variables",
@@ -119,19 +121,21 @@
                                 },
                                 {
                                     "subtitle": "Instantiation ",
-                                    "subdescription" : " The 'new' keyword is used to create the object.",                                    
+                                    "subdescription" : " The 'new' keyword is used to create the object."                                    
                                 },
                                 {
                                     "subtitle": "Initialization",
                                     "subdescription": "The 'new' keyword is followed by a call to a constructor. This call initializes the new object."
                                 }
                             ],
-                            "codesnippet": "public class Puppy { \n public Puppy(String name) {\n // This constructor has one parameter, name.\n System.out.println('Passed Name is :' + name );\n} \npublic static void main(String []args) { \n// Following statement would create an object myPuppy  \nPuppy myPuppy = new Puppy( 'tommy' );\n }\n }"
+                            "codesnippet": "public class Puppy { \n public Puppy(String name) {\n // This constructor has one parameter, name.\n System.out.println('Passed Name is :' + name );\n} \npublic static void main(String []args) { \n// Following statement would create an object myPuppy  \nPuppy myPuppy = new Puppy( 'tommy' );\n }\n }",
+                            "youtubelink": "https://www.youtube.com/embed/MeP1CztNMdo"
                         },
                         {
                             "title": "Accessing Instance Variables and Methods",
                             "description": "nstance variables and methods are accessed via created objects. To access an instance variable, following is the fully qualified path −",
-                            "codesnippet" : "/* First create an object */ \n ObjectReference = new Constructor();\n/* Now call a variable as follows */\nObjectReference.variableName;\n /* Now you can call a class method as follows */ \n ObjectReference.MethodName();"
+                            "codesnippet" : "/* First create an object */ \n ObjectReference = new Constructor();\n/* Now call a variable as follows */\nObjectReference.variableName;\n /* Now you can call a class method as follows */ \n ObjectReference.MethodName();",
+                            "youtubelink": "https://www.youtube.com/embed/q4vknQYjHy8"
                         },
                         {
                             "title": "Java Package",
@@ -159,7 +163,84 @@
                                     "subdescription": "Parameterized Constructors"
                                 }
                             ],
-                            "codesnippet" : "class ClassName {\n ClassName() { \n } \n }"
+                            "codesnippet" : "class ClassName {\n ClassName() { \n } \n }",
+                            "youtubelink": "https://www.youtube.com/embed/0Jc_rT7t1W8"
+                        },
+                        {
+                            "title": "No argument Constructors",
+                            "description": "As the name specifies the no argument constructors of Java does not accept any parameters instead, using these constructors the instance variables of a method will be initialized with fixed values for all objects.",
+                            "codesnippet": "Public class MyClass { \n Int num;\n MyClass() {\n  num = 100;\n  }\n}"
+                        }
+                    ],
+                    "isComplete": false
+                },
+                {
+                    "moduleName": " Basic Datatypes",
+                    "moduleDetails": [
+                        {
+                            "description": "Variables are nothing but reserved memory locations to store values. This means that when you create a variable you reserve some space in the memory.\n Based on the data type of a variable, the operating system allocates memory and decides what can be stored in the reserved memory. Therefore, by assigning different data types to variables, you can store integers, decimals, or characters in these variables.\n There are two data types available in Java −",
+                            "subModule" : [
+                                {
+                                    "subtitle" : "Primitive Data Types"
+                                },
+                                {
+                                    "subtitle": "Reference/Object Data Types"
+                                },
+                                {
+                                    "subtitle": "Primitive Data Types",
+                                    "subdescription" : "There are eight primitive datatypes supported by Java. Primitive datatypes are predefined by the language and named by a keyword. Let us now look into the eight primitive data types in detail."
+                                },
+                                {
+                                    "subtitle": "byte",
+                                    "subdescription": "Byte data type is an 8-bit signed two's complement integer \nMinimum value is -128 (-2^7)\nMaximum value is 127 (inclusive)(2^7 -1)\nDefault value is 0 \nByte data type is used to save space in large arrays, mainly in place of integers, since a byte is four times smaller than an integer.\nExample: byte a = 100, byte b = -50"
+                                },
+                                {
+                                    "subtitle": "short",
+                                    "subdescription": "Short data type is a 16-bit signed two's complement integer \nMinimum value is -32,768 (-2^15)\nMaximum value is 32,767 (inclusive) (2^15 -1)\nShort data type can also be used to save memory as byte data type. A short is 2 times smaller than an integer \nDefault value is 0.\n Example: short s = 10000, short r = -20000"
+                                },
+                                {
+                                    "subtitle": "int",
+                                    "subdescription": "Int data type is a 32-bit signed two's complement integer.\nMinimum value is - 2,147,483,648 (-2^31)\nMaximum value is 2,147,483,647(inclusive) (2^31 -1)\nInteger is generally used as the default data type for integral values unless there is a concern about memory.\nThe default value is 0\nExample: int a = 100000, int b = -200000"
+                                },
+                                {
+                                    "subtitle": "long",
+                                    "subdescription": "Long data type is a 64-bit signed two's complement integer \nMinimum value is -9,223,372,036,854,775,808(-2^63)\nMaximum value is 9,223,372,036,854,775,807 (inclusive)(2^63 -1)\nThis type is used when a wider range than int is needed\nDefault value is 0L\nExample: long a = 100000L, long b = -200000L"
+                                },
+                                {
+                                    "title": "float",
+                                    "subdescription": "Float data type is a single-precision 32-bit IEEE 754 floating point \nFloat is mainly used to save memory in large arrays of floating point numbers \nDefault value is 0.0f\nFloat data type is never used for precise values such as currency\nExample: float f1 = 234.5f"
+                                },
+                                {
+                                    "subtitle": "double",
+                                    "subdescription": "double data type is a double-precision 64-bit IEEE 754 floating point \nThis data type is generally used as the default data type for decimal values, generally the default choice \nDouble data type should never be used for precise values such as currency \nDefault value is 0.0d  \nExample: double d1 = 123.4"
+                                },
+                                {
+                                    "subtitle": "boolean",
+                                    "subdescription": "boolean data type represents one bit of information \nThere are only two possible values: true and false\nThis data type is used for simple flags that track true/false conditions\nDefault value is false\nExample: boolean one = true"
+                                },
+                                {
+                                    "subtitle": "char",
+                                    "subdescription": "char data type is a single 16-bit Unicode character\nMinimum value is '\u0000' (or 0)\nMaximum value is '\uffff' (or 65,535 inclusive)\nChar data type is used to store any character\nExample: char letterA = 'A'"
+                                }
+                            ],
+                            "youtubelink": "https://www.youtube.com/embed/RnD6NJs5xoI"
+                        },
+                        {
+                            "title": "Java Literals",
+                            "description": "A literal is a source code representation of a fixed value. They are represented directly in the code without any computation.\n Literals can be assigned to any primitive type variable. For example −",
+                            "codesnippet": "yte a = 68; \nchar a = 'A';"
+                        },
+                        {
+                            "description": "byte, int, long, and short can be expressed in decimal(base 10), hexadecimal(base 16) or octal(base 8) number systems as well.\nPrefix 0 is used to indicate octal, and prefix 0x indicates hexadecimal when using these number systems for literals. For example −",
+                            "codesnippet": "int decimal = 100;\nint octal = 0144;\nint hexa =  0x64;"
+                        },
+                        {
+                            "description": "String literals in Java are specified like they are in most other languages by enclosing a sequence of characters between a pair of double quotes. Examples of string literals are −",
+                            "codesnippet": "'Hello World'\n'two\\nlines'\n'\\'This is in quotes\\''"
+                        },
+                        {
+                            "description": "String and char types of literals can contain any Unicode characters. For example −",
+                            "codesnippet": "char a = '\\u0001';\nString a = '\\u0001';"
                         }
                     ],
                     "isComplete": false
@@ -178,7 +259,7 @@
                 },
                 {
                     "quizId": 2,
-                    "question": "Which one is a valid declaration of a boolean?",,
+                    "question": "Which one is a valid declaration of a boolean?",
                     "option1": " boolean b1 = 1",
                     "option2":   "boolean b2 = ‘false’",
                     "option3" :   "boolean b3 = false",
@@ -219,9 +300,85 @@
             ]
         },
         {
-            "chapterName" : "Object Orientation",
+            "chapterName" : "Object Oriented",
             "chapterModule" : [
                 {
+                    "moduleName": "Inheritance",
+                    "moduleDetails" : [
+                       {
+                        "description": "Inheritance can be defined as the process where one class acquires the properties (methods and fields) of another. With the use of inheritance the information is made manageable in a hierarchical order.\nThe class which inherits the properties of other is known as subclass (derived class, child class) and the class whose properties are inherited is known as superclass (base class, parent class)."
+                       },
+                       {
+                           "title": "extends Keyword",
+                           "description": "extends is the keyword used to inherit the properties of a class. Following is the syntax of extends keyword.",
+                           "codesnippet": "class Super {\n    .....\n  .....\n}\nclass Sub extends Super {\n  .....\n  .....\n}"
+                       },
+                       {
+                           "title": "Sample Code",
+                           "description": "Following is an example demonstrating Java inheritance. In this example, you can observe two classes namely Calculation and My_Calculation.\nUsing extends keyword, the My_Calculation inherits the methods addition() and Subtraction() of Calculation class.\nCopy and paste the following program in a file with name My_Calculation.java",
+                           "codesnippet": "class Calculation {\n    int z;\n    public void addition(int x, int y) {\n       z = x + y;\n       System.out.println('The sum of the given numbers:'+z);\n    }\n    public void Subtraction(int x, int y) {\n       z = x - y;\n       System.out.println('The difference between the given numbers:'+z);\n    }\n }\n public class My_Calculation extends Calculation {\n    public void multiplication(int x, int y) {\n       z = x * y;\n       System.out.println('The product of the given numbers:'+z);\n    }\n    public static void main(String args[]) {\n       int a = 20, b = 10;\n       My_Calculation demo = new My_Calculation();\n       demo.addition(a, b);\n       demo.Subtraction(a, b);\n       demo.multiplication(a, b);\n    }\n}"
+                       },
+                       {
+                           "description": "After executing the program, it will produce the following result −",
+                           "codesnippet": "The sum of the given numbers:30/nThe difference between the given numbers:10/nThe product of the given numbers:200"
+                       },
+                       {
+                           "title": "IS-A Relationship",
+                           "description": "IS-A is a way of saying: This object is a type of that object. Let us see how the extends keyword is used to achieve inheritance.",
+                           "codesnippet": "public class Animal {\n}\npublic class Mammal extends Animal {\n}\npublic class Reptile extends Animal {\n}\npublic class Dog extends Mammal {\n}"
+                       },
+                       {
+                           "description": "Now, based on the above example, in Object-Oriented terms, the following are true −",
+                           "subModule": [
+                               {
+                                   "subdescription": "Animal is the superclass of Mammal class."
+                               },
+                               {
+                                    "subdescription": "Animal is the superclass of Reptile class."     
+                               },
+                               {
+                                   "subdescription": "Mammal and Reptile are subclasses of Animal class."
+                               },
+                               {
+                                   "subdescription": "Dog is the subclass of both Mammal and Animal classes."
+                               },
+                               {
+                                   "subdescription": "Now, if we consider the IS-A relationship, we can say −"
+                               },
+                               {
+                                   "subdescription": "Mammal IS-A Animal"
+                               },
+                               {
+                                   "subdescription": "Reptile IS-A Animal"
+                               },
+                               {
+                                   "subdescription": "Dog IS-A Mammal"
+                               },
+                               {
+                                   "subdescription": "Hence: Dog IS-A Animal as well"
+                               }
+                           ]
+                       },
+                       {
+                           "description": "With the use of the extends keyword, the subclasses will be able to inherit all the properties of the superclass except for the private properties of the superclass.\nWe can assure that Mammal is actually an Animal with the use of the instance operator.",
+                           "codesnippet": "class Animal {\n}\nclass Mammal extends Animal {\n}\nclass Reptile extends Animal {\n}\npublic class Dog extends Mammal {\n   public static void main(String args[]) {\n      Animal a = new Animal();\n      Mammal m = new Mammal();\n      Dog d = new Dog();\n      System.out.println(m instanceof Animal);\n      System.out.println(d instanceof Mammal);\n      System.out.println(d instanceof Animal);\n   }\n}"
+                       },
+                       {
+                           "description": "This will produce the following result −",
+                           "codesnippet": "true\ntrue\ntrue"
+                       },
+                       {
+                           "title": "HAS-A relationship",
+                           "description": "These relationships are mainly based on the usage. This determines whether a certain class HAS-A certain thing. This relationship helps to reduce duplication of code as well as bugs.\nLets look into an example −",
+                           "codesnippet": "public class Vehicle{}\npublic class Speed{}\npublic class Van extends Vehicle {\n  private Speed sp;\n}"
+                       },
+                       {
+                           "description": "This shows that class Van HAS-A Speed. By having a separate class for Speed, we do not have to put the entire code that belongs to speed inside the Van class, which makes it possible to reuse the Speed class in multiple applications.\nIn Object-Oriented feature, the users do not need to bother about which object is doing the real work. To achieve this, the Van class hides the implementation details from the users of the Van class. So, basically what happens is the users would ask the Van class to do a certain action and the Van class will either do the work by itself or ask another class to perform the action.",
+                           "codesnippet": "public class extends Animal, Mammal{}"
+                       }
+                    ]
+                }
+                ,{
                     "moduleName": "Encapsulation",
                     "moduleDetails": [
                         {

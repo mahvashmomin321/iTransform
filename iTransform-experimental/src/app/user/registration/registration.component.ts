@@ -27,13 +27,14 @@ export class RegistrationComponent {
         console.log(this.course);
         });
 
-        this.registrationForm=this.fb.group({
+        this.registrationForm = this.fb.group({
 
             userName: ['', Validators.required],
             name: ['', Validators.required],
             email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
             contactNumber : ['', [Validators.required, Validators.pattern('^\d{10}$')]],
-            password: ['', [Validators.required, Validators.minLength(8)]]
+            password: ['', 
+               [ Validators.required, Validators.pattern('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})')            ]],
         });
     }
 

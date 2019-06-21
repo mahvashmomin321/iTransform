@@ -36,7 +36,7 @@
   <div class="form-group">
     <input type="password" formControlName="password" class="form-control box4" placeholder="password" id="password" name="password" [class.is-invalid]="password.touched && password.invalid"  required />
     <div *ngIf="password.touched && password.errors" >
-        <div class="text-danger" *ngIf="password.errors?.pattern" [class.d-none]="password.valid || password.untouched"> Password must be 8 digits</div>
+        <div class="text-danger" *ngIf="password.errors?.pattern" [class.d-none]="password.valid || password.untouched"> Password must be 8 digits long and include at least one numeric digit.</div>
         <div class="text-danger" *ngIf="password.errors?.required" [class.d-none]="password.valid || password.untouched">Password  is Required</div>
     </div>
 </div>

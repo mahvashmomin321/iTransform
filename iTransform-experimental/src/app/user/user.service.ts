@@ -17,8 +17,8 @@ export class UserService{
         return this.http.get<Courses[]>(this.baseUrlForCourse);
         }
         
-    addNewUser(user:User):Observable<User>{
-        return this.http.post<User>(this.baseUrl,user);
+    addNewUser(user:User,courseId:number):Observable<User>{
+        return this.http.post<User>(this.baseUrl+"/"+courseId,user);
     }
 
     getUserAuthentication(userName,password):Observable<User>{

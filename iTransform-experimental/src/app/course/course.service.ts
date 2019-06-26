@@ -1,30 +1,26 @@
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { HttpClient,HttpHeaders  } from '@angular/common/http';
-import { User, Courses } from '../user/user';
+import { User} from '../user/user';
+import { Courses } from './course';
 
 @Injectable()
 export class CourseService{
 
-   // baseUrlForQuiz ="/assets/jsondata/quiz.json";
-   // baseUrl="/src/api/course0.json";
-    baseUrl = "http://localhost:8083/user"
+    baseUrl = "http://localhost:8084/"
     constructor(private http: HttpClient) {}
 
-    // getQuiz(): Observable<Quiz[]> {
-    //     return this.http.get<Quiz[]>(this.baseUrlForQuiz);
-    // }
-
+    
     findAllCourses(): Observable<Courses[]> {
-        return this.http.get<Courses[]>(this.baseUrl);
+        return this.http.get<Courses[]>(this.baseUrl + "course");
     }
 
-    // getCourseById():Observable<Courses>{
-    //     return this.http.get<Courses>("/assets/jsondata/corejava.json");
-    // }
+    getCourseById(courseId:number):Observable<Courses>{
+        return this.http.get<Courses>(this.baseUrl + "course/" + courseId);
+    }
 
     updateUserCourse(user:User):Observable<User>{
-        return this.http.put<User>(this.baseUrl,user);
+        return this.http.put<User>("http://localhost:8083/user",user);
     }
 
 }

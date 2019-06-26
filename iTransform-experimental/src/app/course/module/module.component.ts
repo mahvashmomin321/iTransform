@@ -7,27 +7,25 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 @Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
-  constructor(private sanitizer: DomSanitizer) { }
-  transform(url) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
+    constructor(private sanitizer: DomSanitizer) { }
+    transform(url) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
 }
 @Component({
     templateUrl: './module.component.html',
-    styleUrls : ['./module.component.css']
+    styleUrls: ['./module.component.css']
 })
 export class ModuleComponent implements OnInit {
 
     progress = 0;
-    count:number;
+    count=0;
     user: User;
-    courses: Courses[];
-
+    
     constructor(private courseService: CourseService,
-                private route: ActivatedRoute,
-                private router: Router, private sanitizer: DomSanitizer) { }
+        private route: ActivatedRoute,
+        private router: Router, private sanitizer: DomSanitizer) { }
 
-    actualCourse: Courses;
     course: Courses;
     chapters: CourseChapter[]
     modules: ChapterModule[];
@@ -39,140 +37,161 @@ export class ModuleComponent implements OnInit {
     array: Array<String> = [];
     value: string;
     length = 0;
-    courseForSessionStorage: Courses;
 
     moduleCount = 0;
     quizCount = 0;
-
+    total=0;
     chapterQuiz: ChapterQuiz[];
     ngOnInit(): void {
 
         this.user = JSON.parse(sessionStorage.getItem("user"));
-        this.courses = this.user.course;
+        //this.courses = this.user.course;
 
 
         this.route.paramMap.subscribe((map) => {
-            this.courseId = Number(map.get("courseId"));
+            this.courseId = Number(map.get("coursesId"));
             this.chapterId = Number(map.get("chapterId"));
             this.moduleId = Number(map.get("moduleId"));
+            console.log(this.courseId)
+            this.courseService.getCourseById(this.courseId).subscribe((data) => {
+                this.course = data;
 
-            console.log(this.chapterId + "" + this.moduleId);
-            this.course = this.courses[this.courseId];
-            this.chapters = this.course.courseChapter;
+                console.log(this.chapterId + "" + this.moduleId);
+                this.chapters = this.course.courseChapter;
+                console.log(this.chapters);
+                for (let i = 0; i < this.chapters.length; i++) {
+                    this.modules = this.chapters[i].chapterModule;
+                    this.chapterQuiz = this.chapters[i].chapterQuiz;
+                    console.log(this.course)
+                    console.log(this.chapters[i])
+                    console.log(this.chapterQuiz)
+                    for (let j = 0; j < this.modules.length; j++) {
 
-            for (let i = 0; i < this.chapters.length; i++) {
-                this.modules = this.chapters[i].chapterModule;
-                this.chapterQuiz = this.chapters[i].chapterQuiz;
-                console.log(this.course)
-                console.log(this.chapters[i])
-                console.log(this.chapterQuiz)
-                for (let j = 0; j < this.modules.length; j++) {
-                    
-                    if (this.length == 0) {
-                        this.array.push(i + "" + j);
-                    }
-                }
-
-                if(this.chapterQuiz != null){
-                    for(let k = 0; k < this.chapterQuiz.length;k++){
                         if (this.length == 0) {
-                            this.array.push(i + "" + k + "q");
+                            this.array.push(i + "" + j);
                         }
                     }
+
+                    if (this.chapterQuiz != null) {
+                        for (let k = 0; k < this.chapterQuiz.length; k++) {
+                            if (this.length == 0) {
+                                this.array.push(i + "" + k + "q");
+                            }
+                        }
+                    }
+
                 }
-
-            }
-            this.length = this.array.length;
-            console.log(this.array);
-            console.log(this.course);
-            this.module = this.chapters[this.chapterId].chapterModule[this.moduleId];
-            console.log(this.module);
-            // console.log(this.module.moduleDetails.youtubelink);
-            // this.video = this.module.moduleDetails.youtubelink;
-            for(let m=0; m< this.module.moduleDetails.length; m++) {
-                console.log(this.module.moduleDetails[m].youtubelink);
-                this.video = this.module.moduleDetails[m].youtubelink;
-            }
-        });
-        
-
-//**************** */for progress bar start************************************
+                this.length = this.array.length;
+                console.log(this.array);
+                console.log(this.course);
+                this.module = this.chapters[this.chapterId].chapterModule[this.moduleId];
+                console.log(this.module);
+                // console.log(this.module.moduleDetails.youtubelink);
+                // this.video = this.module.moduleDetails.youtubelink;
+                for (let m = 0; m < this.module.moduleDetails.length; m++) {
+                    console.log(this.module.moduleDetails[m].youtubelink);
+                    this.video = this.module.moduleDetails[m].youtubelink;
+                }
+    
+        //**************** */for progress bar start************************************
         this.count=0;
         this.moduleCount=0;
         this.quizCount=0;
-        for (let i = 0; i < this.chapters.length; i++) {
-            for (let j = 0; j < this.chapters[i].chapterModule.length; j++) {
+        console.log(this.course);
+        
+        for (let i = 0; i < this.course.courseChapter.length; i++) {
+            for (let j = 0; j < this.course.courseChapter[i].chapterModule.length; j++) {
                 console.log(this.chapters[i].chapterModule[j])
-                console.log(this.chapters[i].chapterModule[j].complete)
                 this.moduleCount++;
-                if (this.chapters[i].chapterModule[j].complete) {
-                    this.count++;
-                    console.log(this.count);
-                }
-
+                console.log(this.moduleCount)
             }
 
             if(this.chapters[i].chapterQuiz !=null){
-                for (let k = 0; k < this.chapters[i].chapterQuiz.length; k++) {
+                for (let k = 0; k < this.course.courseChapter[i].chapterQuiz.length; k++) {
                     console.log(this.chapters[i].chapterQuiz[k])
                     console.log(this.chapters[i].chapterQuiz[k].complete)
                     this.quizCount++
-                    if (this.chapters[i].chapterQuiz[k].complete) {
-                        this.count++
-                        console.log(this.count);
+                console.log(this.quizCount)
+
+                }
+            }
+        }
+        for(let i=0;i<this.user.course.length;i++){
+            if(this.user.course[i].courseId == this.courseId){
+                this.count=this.user.course[i].moduleComplete.length
+            }
+        }
+        this.total = this.moduleCount + this.quizCount;
+          console.log(this.moduleCount + this.quizCount);
+        this.progress = Number((this.count / (this.moduleCount+this.quizCount)) * 100);
+        console.log(this.count);
+        //****************progress bar end********************************* */
+
+    });
+
+})
+
+    }
+
+
+    next() {
+        console.log(this.user)
+        for (let a = 0; a < this.user.course.length; a++) {
+            console.log(1)
+            if (this.user.course[a].courseId = this.courseId) {
+                console.log(this.user.course[a].moduleComplete.length)
+
+                if (this.user.course[a].moduleComplete.includes(this.chapterId + "" + this.moduleId)) {
+
+                } else {
+                    this.user.course[a].moduleComplete.push(this.chapterId + "" + this.moduleId);
+                    if (this.user.course[a].moduleComplete.includes("0")) {
+                        this.user.course[a].moduleComplete.shift();
                     }
                 }
             }
         }
-          console.log(this.moduleCount + this.quizCount);
-        this.progress = Number((this.count / (this.moduleCount+this.quizCount)) * 100);
-        console.log(this.count);
-//****************progress bar end********************************* */
+        console.log(this.user)
 
-
-
-    }
-    
-
-    next() {
-        this.user.course[this.courseId].courseChapter[this.chapterId].chapterModule[this.moduleId].complete = true;
-        this.courseService.updateUserCourse(this.user).subscribe((data)=>{
+        this.courseService.updateUserCourse(this.user).subscribe((data) => {
             this.user = data;
-            sessionStorage.setItem('user',JSON.stringify(this.user));
+            sessionStorage.setItem('user', JSON.stringify(this.user));
         });
 
 
-///**************** */for progress bar start************************************
-       this.count=0;
-       this.moduleCount=0;
-       this.quizCount=0;
-        for (let i = 0; i < this.chapters.length; i++) {
-            for (let j = 0; j < this.chapters[i].chapterModule.length; j++) {
+        ///**************** */for progress bar start************************************
+        this.count=0;
+        this.moduleCount=0;
+        this.quizCount=0;
+        console.log(this.course);
+        
+        for (let i = 0; i < this.course.courseChapter.length; i++) {
+            for (let j = 0; j < this.course.courseChapter[i].chapterModule.length; j++) {
                 console.log(this.chapters[i].chapterModule[j])
-                console.log(this.chapters[i].chapterModule[j].complete)
-                this.moduleCount++
-                if (this.chapters[i].chapterModule[j].complete) {
-                    this.count++
-                    console.log(this.count);
-                }
+                this.moduleCount++;
+                console.log(this.moduleCount)
             }
 
             if(this.chapters[i].chapterQuiz !=null){
-                for (let k = 0; k < this.chapters[i].chapterQuiz.length; k++) {
+                for (let k = 0; k < this.course.courseChapter[i].chapterQuiz.length; k++) {
                     console.log(this.chapters[i].chapterQuiz[k])
                     console.log(this.chapters[i].chapterQuiz[k].complete)
                     this.quizCount++
-                    if (this.chapters[i].chapterQuiz[k].complete) {
-                        this.count++
-                        console.log(this.count);
-                    }
+                console.log(this.quizCount)
+
                 }
             }
         }
+        for(let i=0;i<this.user.course.length;i++){
+            if(this.user.course[i].courseId == this.courseId){
+                this.count=this.user.course[i].moduleComplete.length
+            }
+        }
+        this.total = this.moduleCount + this.quizCount;
           console.log(this.moduleCount + this.quizCount);
         this.progress = Number((this.count / (this.moduleCount+this.quizCount)) * 100);
         console.log(this.count);
-//****************progress bar end********************************* */
+        //****************progress bar end********************************* */
 
 
 
@@ -181,10 +200,10 @@ export class ModuleComponent implements OnInit {
             if (value == this.array[i] && i != this.array.length - 1) {
                 let got = this.array[i + 1];
                 console.log(got)
-                if(this.array[i+1].length == 2){
-                this.router.navigate(["chapters/" + this.courseId + "/modules/" + this.courseId + "/"+ Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
-                }else{
-                this.router.navigate(["chapters/" + this.courseId + "/quiz/" + this.courseId + "/"+ Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
+                if (this.array[i + 1].length == 2) {
+                    this.router.navigate(["chapters/" + this.courseId + "/modules/" + this.courseId + "/" + Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
+                } else {
+                    this.router.navigate(["chapters/" + this.courseId + "/quiz/" + this.courseId + "/" + Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
                 }
             }
         }
@@ -197,11 +216,11 @@ export class ModuleComponent implements OnInit {
             if (value == this.array[i] && i != 0) {
                 let got = this.array[i - 1];
                 console.log(got);
-                if(this.array[i-1].length == 2){
-                    this.router.navigate(["chapters/" + this.courseId + "/modules/" + this.courseId + "/"+ Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
-                    }else{
-                    this.router.navigate(["chapters/" + this.courseId + "/quiz/" + this.courseId + "/"+ Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
-                    }
+                if (this.array[i - 1].length == 2) {
+                    this.router.navigate(["chapters/" + this.courseId + "/modules/" + this.courseId + "/" + Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
+                } else {
+                    this.router.navigate(["chapters/" + this.courseId + "/quiz/" + this.courseId + "/" + Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
+                }
             }
         }
     }

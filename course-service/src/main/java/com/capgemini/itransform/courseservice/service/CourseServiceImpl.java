@@ -29,4 +29,9 @@ public class CourseServiceImpl implements CourseService{
 		return dao.findById(courseId).get();
 	}
 
+	@Override
+	public List<Course> getAllCourseName() {
+		return dao.findAllCourseName();
+	}
+
 }

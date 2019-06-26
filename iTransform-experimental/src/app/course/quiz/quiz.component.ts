@@ -1,25 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChapterQuiz, CourseChapter } from '../course';
-import { Courses, User, ChapterModule } from 'src/app/user/user';
+import { ChapterQuiz, CourseChapter, Courses, ChapterModule } from '../course';
+import { User } from 'src/app/user/user';
 
 @Component({
-    templateUrl:"./quiz.component.html",
-    styleUrls:["./quiz.component.css"]
+    templateUrl: "./quiz.component.html",
+    styleUrls: ["./quiz.component.css"]
 })
-export class QuizComponent implements OnInit{
-    
+export class QuizComponent implements OnInit {
+
     progress = 0;
 
-    user:User;
-    courses:Courses[];
-    course:Courses;
-    chapters:CourseChapter[];
-    modules:ChapterModule[];
-    
-    chapterQuiz:ChapterQuiz[];
-    quiz:ChapterQuiz;
+    user: User;
+    course: Courses;
+    chapters: CourseChapter[];
+    modules: ChapterModule[];
+
+    chapterQuiz: ChapterQuiz[];
+    quiz: ChapterQuiz;
 
     array: Array<String> = [];
     value: string;
@@ -27,150 +26,192 @@ export class QuizComponent implements OnInit{
 
     moduleCount = 0;
     quizCount = 0;
-    count= 0;
-   
-    courseId:number;
-    chapterId:number;
-    quizId:number;
+    count = 0;
+
+    courseId: number;
+    chapterId: number;
+    quizId: number;
+
+    correct: boolean = false;
+    total = 0;
 
     constructor(private courseService: CourseService,
         private route: ActivatedRoute,
-        private router: Router) {}
+        private router: Router) { }
 
-    ngOnInit(){
-       
+    ngOnInit() {
         this.user = JSON.parse(sessionStorage.getItem("user"));
-        this.courses = this.user.course;
+        // this.courses = this.user.course;
 
 
         this.route.paramMap.subscribe((map) => {
-            this.courseId = Number(map.get("courseId"));
+            this.courseId = Number(map.get("coursesId"));
             this.chapterId = Number(map.get("chapterId"));
             this.quizId = Number(map.get("quizId"));
 
-            console.log(this.chapterId + "" + this.quizId)
-            this.course = this.courses[this.courseId];
-            this.chapters = this.course.courseChapter;
 
-            for (let i = 0; i < this.chapters.length; i++) {
-                this.modules = this.chapters[i].chapterModule;
-                this.chapterQuiz = this.chapters[i].chapterQuiz;
-                console.log(this.course)
-                console.log(this.chapters[i])
-                console.log(this.chapterQuiz)
-                for (let j = 0; j < this.modules.length; j++) {
-                    
-                    if (this.length == 0) {
-                        this.array.push(i + "" + j);
+            for (let i = 0; i < this.user.course.length; i++) {
+                if (this.user.course[i].courseId == this.courseId) {
+                    if (this.user.course[i].moduleComplete.includes(this.chapterId + "" + this.quizId + "q")) {
+                        this.correct = true;
+                    }
+                    else {
+                        this.correct = false;
                     }
                 }
-
-                if(this.chapterQuiz != null){
-                    for(let k = 0; k < this.chapterQuiz.length;k++){
-                        if (this.length == 0) {
-                            this.array.push(i + "" + k + "q");
-                        }
-                    }
-                }
-
             }
-            this.length = this.array.length;
-            console.log(this.array);
-            console.log(this.course);
-            this.quiz = this.chapters[this.chapterId].chapterQuiz[this.quizId];
-            console.log(this.quiz);
-            
-        });
 
 
-        //**************** */for progress bar start************************************
-                this.count=0;
-                this.moduleCount=0;
-                this.quizCount=0;
+            this.courseService.getCourseById(this.courseId).subscribe((data) => {
+                this.course = data;
+                console.log(this.course)
+                console.log(this.chapterId + "" + this.quizId)
+                //this.course = this.courses[this.courseId];
+                this.chapters = this.course.courseChapter;
+
                 for (let i = 0; i < this.chapters.length; i++) {
-                    for (let j = 0; j < this.chapters[i].chapterModule.length; j++) {
-                        console.log(this.chapters[i].chapterModule[j])
-                        console.log(this.chapters[i].chapterModule[j].complete)
-                        this.moduleCount++
-                        if (this.chapters[i].chapterModule[j].complete) {
-                            this.count++
-                            console.log(this.count);
+                    this.modules = this.chapters[i].chapterModule;
+                    this.chapterQuiz = this.chapters[i].chapterQuiz;
+                    console.log(this.course)
+                    console.log(this.chapters[i])
+                    console.log(this.chapterQuiz)
+                    for (let j = 0; j < this.modules.length; j++) {
+
+                        if (this.length == 0) {
+                            this.array.push(i + "" + j);
                         }
                     }
 
-                    if(this.chapters[i].chapterQuiz !=null){
-                        for (let k = 0; k < this.chapters[i].chapterQuiz.length; k++) {
-                            console.log(this.chapters[i].chapterQuiz[k])
-                            console.log(this.chapters[i].chapterQuiz[k].complete)
-                            this.quizCount++
-                            if (this.chapters[i].chapterQuiz[k].complete) {
-                                this.count++
-                                console.log(this.count);
+                    if (this.chapterQuiz != null) {
+                        for (let k = 0; k < this.chapterQuiz.length; k++) {
+                            if (this.length == 0) {
+                                this.array.push(i + "" + k + "q");
                             }
                         }
                     }
+
                 }
+                this.length = this.array.length;
+                console.log(this.array);
+                console.log(this.course);
+                this.quiz = this.chapters[this.chapterId].chapterQuiz[this.quizId];
+                console.log(this.quiz);
+
+
+
+                //**************** */for progress bar start************************************
+                this.count = 0;
+                this.moduleCount = 0;
+                this.quizCount = 0;
+                console.log(this.course);
+
+                for (let i = 0; i < this.course.courseChapter.length; i++) {
+                    for (let j = 0; j < this.course.courseChapter[i].chapterModule.length; j++) {
+                        console.log(this.chapters[i].chapterModule[j])
+                        this.moduleCount++;
+                        console.log(this.moduleCount)
+                    }
+
+                    if (this.chapters[i].chapterQuiz != null) {
+                        for (let k = 0; k < this.course.courseChapter[i].chapterQuiz.length; k++) {
+                            console.log(this.chapters[i].chapterQuiz[k])
+                            console.log(this.chapters[i].chapterQuiz[k].complete)
+                            this.quizCount++
+                            console.log(this.quizCount)
+
+                        }
+                    }
+                }
+                for (let i = 0; i < this.user.course.length; i++) {
+                    if (this.user.course[i].courseId == this.courseId) {
+                        this.count = this.user.course[i].moduleComplete.length
+                    }
+                }
+                this.total = this.moduleCount + this.quizCount;
                 console.log(this.moduleCount + this.quizCount);
-                this.progress = Number((this.count / (this.moduleCount+this.quizCount)) * 100);
+                this.progress = Number((this.count / (this.moduleCount + this.quizCount)) * 100);
                 console.log(this.count);
-        //****************progress bar end********************************* */     
-    }
-    
-
-    option:string;
-    onSubmit(){
-        if(this.quiz.complete != true){
-            if(this.quiz.answer == this.option){
-                this.user.course[this.courseId].courseChapter[this.chapterId].chapterQuiz[this.quizId].complete = true;
-                
-                this.courseService.updateUserCourse(this.user).subscribe((data)=>{
-                    this.user = data;
-                    sessionStorage.setItem("user",JSON.stringify(this.user));
-                    alert("Your Answer is Correct Please Press Next Button");
-                })
-            }else{
-                alert("try again!! answer is incorrect");
-            }   
-        }
+                //****************progress bar end********************************* */     
+            });
+        });
     }
 
 
+    option: string;
 
+    onSubmit() {
+        for (let i = 0; i < this.user.course.length; i++) {
+            if (this.user.course[i].courseId == this.courseId) {
+                if (this.user.course[i].moduleComplete.includes(this.chapterId + "" + this.quizId + "q")) {
 
+                } else {
+                    if (this.quiz.answer == this.option) {
+                        this.user.course[i].moduleComplete.push(this.chapterId + "" + this.quizId + "q");
+                        if (this.user.course[i].moduleComplete.includes("0")) {
+                            this.user.course[i].moduleComplete.shift();
+                        }
 
+                        this.courseService.updateUserCourse(this.user).subscribe((data) => {
+                            this.user = data;
+                            sessionStorage.setItem("user", JSON.stringify(this.user));
 
-next() {
-///**************** */for progress bar start************************************
-        this.count=0;
-        this.moduleCount=0;
-        this.quizCount=0;
-        for (let i = 0; i < this.chapters.length; i++) {
-            for (let j = 0; j < this.chapters[i].chapterModule.length; j++) {
-                console.log(this.chapters[i].chapterModule[j])
-                console.log(this.chapters[i].chapterModule[j].complete)
-                this.moduleCount++
-                if (this.chapters[i].chapterModule[j].complete) {
-                    this.count++
-                    console.log(this.count);
-                }
-            }
-
-            if(this.chapters[i].chapterQuiz !=null){
-                for (let k = 0; k < this.chapters[i].chapterQuiz.length; k++) {
-                    console.log(this.chapters[i].chapterQuiz[k])
-                    console.log(this.chapters[i].chapterQuiz[k].complete)
-                    this.quizCount++
-                    if (this.chapters[i].chapterQuiz[k].complete) {
-                        this.count++
-                        console.log(this.count);
+                            if (this.user.course[i].moduleComplete.includes(this.chapterId + "" + this.quizId + "q")) {
+                                this.correct = true;
+                            }
+                            this.next();
+                        })
+                    } else {
+                        if (this.user.course[i].moduleComplete.includes(this.chapterId + "" + this.quizId + "q")) {
+                            this.correct = true;
+                        } else {
+                            this.correct = false;
+                        }
                     }
                 }
             }
         }
-          console.log(this.moduleCount + this.quizCount);
-        this.progress = Number((this.count / (this.moduleCount+this.quizCount)) * 100);
+    }
+
+
+
+
+
+
+    next() {
+
+        ///**************** */for progress bar start************************************
+        this.count = 0;
+        this.moduleCount = 0;
+        this.quizCount = 0;
+        console.log(this.course);
+
+        for (let i = 0; i < this.course.courseChapter.length; i++) {
+            for (let j = 0; j < this.course.courseChapter[i].chapterModule.length; j++) {
+                console.log(this.chapters[i].chapterModule[j])
+                this.moduleCount++;
+                console.log(this.moduleCount)
+            }
+
+            if (this.chapters[i].chapterQuiz != null) {
+                for (let k = 0; k < this.course.courseChapter[i].chapterQuiz.length; k++) {
+                    console.log(this.chapters[i].chapterQuiz[k])
+                    console.log(this.chapters[i].chapterQuiz[k].complete)
+                    this.quizCount++
+                    console.log(this.quizCount)
+
+                }
+            }
+        }
+        for (let i = 0; i < this.user.course.length; i++) {
+            if (this.user.course[i].courseId == this.courseId) {
+                this.count = this.user.course[i].moduleComplete.length
+            }
+        }
+        this.total = this.moduleCount + this.quizCount;
+        console.log(this.moduleCount + this.quizCount);
+        this.progress = Number((this.count / (this.moduleCount + this.quizCount)) * 100);
         console.log(this.count);
-//****************progress bar end********************************* */
+        //****************progress bar end********************************* */
 
 
 
@@ -179,10 +220,10 @@ next() {
             if (value == this.array[i] && i != this.array.length - 1) {
                 let got = this.array[i + 1];
                 console.log(got)
-                if(this.array[i+1].length == 2){
-                this.router.navigate(["chapters/" + this.courseId + "/modules/" + this.courseId + "/"+ Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
-                }else{
-                this.router.navigate(["chapters/" + this.courseId + "/quiz/" + this.courseId + "/"+ Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
+                if (this.array[i + 1].length == 2) {
+                    this.router.navigate(["chapters/" + this.courseId + "/modules/" + this.courseId + "/" + Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
+                } else {
+                    this.router.navigate(["chapters/" + this.courseId + "/quiz/" + this.courseId + "/" + Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
                 }
             }
         }
@@ -195,11 +236,11 @@ next() {
             if (value == this.array[i] && i != 0) {
                 let got = this.array[i - 1];
                 console.log(got);
-                if(this.array[i-1].length == 2){
-                    this.router.navigate(["chapters/" + this.courseId + "/modules/" + this.courseId + "/"+ Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
-                    }else{
-                    this.router.navigate(["chapters/" + this.courseId + "/quiz/" + this.courseId + "/"+ Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
-                    }
+                if (this.array[i - 1].length == 2) {
+                    this.router.navigate(["chapters/" + this.courseId + "/modules/" + this.courseId + "/" + Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
+                } else {
+                    this.router.navigate(["chapters/" + this.courseId + "/quiz/" + this.courseId + "/" + Number(got.charAt(0)) + "/" + Number(got.charAt(1))]);
+                }
             }
         }
     }

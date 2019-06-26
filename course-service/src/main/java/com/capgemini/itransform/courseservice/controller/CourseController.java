@@ -24,13 +24,17 @@ public class CourseController {
 	
 	@PostMapping("/course")
 	public ResponseEntity<Course> addCourse(@RequestBody Course course){
-		
 		return new ResponseEntity<Course>(service.addCourse(course),HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/course")
 	public ResponseEntity<List<Course>> getAllCourse(){
 		return new ResponseEntity<List<Course>>(service.getAllCourses(),HttpStatus.OK);
+	}
+	
+	@GetMapping("/courseName")
+	public ResponseEntity<List<Course>> getAllCourseName(){
+		return new ResponseEntity<List<Course>>(service.getAllCourseName(),HttpStatus.OK);
 	}
 	
 	@GetMapping("/course/{courseId}")

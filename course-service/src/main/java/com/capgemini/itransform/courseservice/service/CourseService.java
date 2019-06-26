@@ -12,4 +12,6 @@ public interface CourseService {
 	public List<Course> getAllCourses();
 	
 	public Course getCourseById(int courseId);
+	
+	public List<Course> getAllCourseName();
 }

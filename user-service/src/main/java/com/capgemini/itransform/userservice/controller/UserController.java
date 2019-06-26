@@ -1,5 +1,8 @@
 package com.capgemini.itransform.userservice.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.capgemini.itransform.userservice.entity.Course;
 import com.capgemini.itransform.userservice.entity.User;
 import com.capgemini.itransform.userservice.service.UserService;
 
@@ -25,10 +29,17 @@ public class UserController {
 	@Autowired
 	RestTemplate restTemplate;
 	
-	@PostMapping("/user")
-	public ResponseEntity<User> addNewUser(@RequestBody User user) {
+	@PostMapping("/user/{courseId}")
+	public ResponseEntity<User> addNewUser(@RequestBody User user,@PathVariable int courseId) {
 		User user1 = service.addNewUser(user);
-		
+		Course course = new Course();
+		List<String> complete = new ArrayList<String>();
+		complete.add("0");
+		course.setModuleComplete(complete);
+		course.setCourseId(courseId);
+		List<Course> list = new ArrayList<Course>();
+		list.add(course);
+		user1.setCourse(list);
 		return new ResponseEntity<User>(user1, HttpStatus.CREATED);
 	}
 	

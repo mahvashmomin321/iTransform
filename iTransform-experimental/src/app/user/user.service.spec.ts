@@ -39,7 +39,7 @@ describe('UserSevice', () => {
             name: 'mah',
             email: 'mah@gmail.com',
             contactNumber : 8879494986,
-            password : '12345678',
+            password : 'mahvash21',
             course: []
         };
 

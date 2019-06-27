@@ -28,8 +28,6 @@ export class AppComponent implements OnInit{
 
   logout() {
     sessionStorage.removeItem('user');
-    // this.router.navigate(['/login']);
-    // window.location.href = '/login';
   }
   
 }

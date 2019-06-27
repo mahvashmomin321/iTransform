@@ -22,7 +22,7 @@ describe('Course Service', () => {
         });
         injector = getTestBed();
         service = injector.get(CourseService);
-        httpMock = injector.get(HttpTestingController);       
+        httpMock = injector.get(HttpTestingController);
     });
     describe('findAllCourse', () => {
         it('should return all the courses', () => {

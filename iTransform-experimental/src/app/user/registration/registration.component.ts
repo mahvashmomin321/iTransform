@@ -51,15 +51,14 @@ export class RegistrationComponent {
         console.log(this.registrationForm.value.userName)
         this.userService.getAllUser().subscribe((data) => {
             this.users = data;
+            console.log(this.users)
             for(let i=0;i<this.users.length;i++){
-                if(this.user.userName == this.registrationForm.value.userName){
+                if(this.users[i].userName == this.registrationForm.value.userName){
                     this.flag= true;
                 }
             }
             
-            if (!this.flag) {
-
-
+            if (this.flag == false) {
                 this.route.paramMap.subscribe((map) => {
                     this.courseId = Number(map.get("courseId"));
 

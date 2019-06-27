@@ -20,7 +20,7 @@ export class CourseComponent implements OnInit{
         
         for(let i =0;i<this.user.course.length;i++){
             this.courseId = this.user.course[i].courseId;
-            console.log(this.courseId)
+            console.log(this.courseId);
             this.courseService.getCourseById(this.courseId).subscribe((data) =>{
                 this.course = data;
                 this.courses.push(this.course);

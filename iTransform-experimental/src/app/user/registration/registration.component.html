@@ -15,7 +15,7 @@
       </div> -->
 
       <div class="form-group">
-        <input type="text" formControlName="userName" class="form-control box1" placeholder="User Name" id="userName" name="userName"   [class.is-invalid]="userName.touched && userName.invalid" required />
+        <input type="text" formControlName="userName" class="form-control box1" placeholder="User Name" id="userName" name="userName"   [class.is-invalid]="userName.touched && userName.invalid && registrationForm.invalid" required />
         <div class="text-danger" [class.d-none]="userName.valid || userName.untouched">User Name is required</div>
     </div>
     <div class="form-group">
@@ -40,8 +40,8 @@
         <div class="text-danger" *ngIf="password.errors?.required" [class.d-none]="password.valid || password.untouched">Password  is Required</div>
     </div>
 </div>
+      <input type="submit" class="btn btn-social" value="SIGNUP" [disabled]="registrationForm.invalid" >
 
-      <input type="submit" class="btn btn-social" value="SIGNUP">
       <a class="login-action" title="Sign in" style="cursor: pointer"  routerLink="/login" >
         Have an account
       </a>

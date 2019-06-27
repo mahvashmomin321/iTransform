@@ -10,6 +10,7 @@ import { CourseModule } from './course/course.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserModule } from './user/user.module';
 import { CommonModule } from '@angular/common';
+import { WelcomeCourseModule } from './welcome-page/welcome-course.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CommonModule } from '@angular/common';
     BrowserAnimationsModule,
     UserModule,
     RouterModule.forRoot(appRoute),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    WelcomeCourseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

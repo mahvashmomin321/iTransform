@@ -42,7 +42,7 @@ export class RegistrationComponent {
             name: ['', Validators.required],
             email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
             contactNumber : ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-            password: ['', [ Validators.required]]
+            password: ['', [ Validators.required, Validators.pattern('^(?=.*[0-9]).{8}$')]]
         });
     }
 
@@ -58,29 +58,18 @@ export class RegistrationComponent {
         this.userService.addNewUser(this.registrationForm.value,this.courseId).subscribe((data) => {
             this.user = data;
             console.log(this.user)
-            alert("working")
             console.log(this.user.course);
-            //this.user.course[0].courseId = 101;
-            // for(let i =0;i<this.user.course.length;i++){
-            //     if(this.user.course[i].courseId != 101){
-            //         this.cours.courseId = 101
-                    
-            //         this.user.course.push(this.cours);
-            //     }    
-            // }
-           
-
-                 //tslint:disable-next-line:max-line-length
-                if(this.user.contactNumber == 0 && this.user.name == '' && this.user.email=='' && this.user.password=="" && this.user.userName==""){
+                 // tslint:disable-next-line:max-line-length
+            if(this.registrationForm.invalid){
+                    // tslint:disable-next-line:quotemark
                     alert("Registration is unsuccessful");
-                }
-                else 
+                } else
                 {
                     this.submitted = true;
-                    alert("Registration is successful");
+                    alert('Registration is successful');
                     this.router.navigate(["/login"]);
                 }
-            })
+            });
 
             
         

@@ -7,7 +7,7 @@
           <a class="nav-link" routerLink="">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="welcomecourse" id="coursebtn">Courses</a>
+          <a class="nav-link" routerLink="welcomecourse" id="coursebtn">All Courses</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="login" id="loginbtn" >Login</a>
@@ -22,6 +22,8 @@
                 {{user.userName}}
               </button>
               <div class="dropdown-menu" >
+                <a class="dropdown-item" routerLink="/courses">My Courses</a>
+                <br>
                 <a class="dropdown-item"(click)="logout()" routerLink="/logout">logout</a>
               </div>
             </div>

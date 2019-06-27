@@ -44,11 +44,11 @@ describe('UserSevice', () => {
         };
 
         it('should add new user', () => {
-            service.addNewUser(mockUser).subscribe((data) => {
+            service.addNewUser(mockUser,101).subscribe((data) => {
                 expect(data.userName).toEqual('mah');
                 expect(data.name).toEqual('mah');
             });
-            const req = httpMock.expectOne('http://localhost:8083/user');
+            const req = httpMock.expectOne('http://localhost:8083/user/101');
             expect(req.request.method).toBe('POST');
 
             req.flush(mockUser);

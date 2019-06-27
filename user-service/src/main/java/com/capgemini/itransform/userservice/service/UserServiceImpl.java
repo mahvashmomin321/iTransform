@@ -1,5 +1,7 @@
 package com.capgemini.itransform.userservice.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +29,10 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User updateUser(User user) {
 		return dao.save(user);
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		return dao.findAll();
 	}
 }

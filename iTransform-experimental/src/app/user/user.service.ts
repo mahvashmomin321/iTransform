@@ -21,7 +21,12 @@ export class UserService{
         return this.http.post<User>(this.baseUrl+"/"+courseId,user);
     }
 
+    
     getUserAuthentication(userName,password):Observable<User>{
         return this.http.get<User>(this.baseUrl+"/" + userName+ "/"+password);
+    }
+
+    getAllUser():Observable<User[]>{
+        return this.http.get<User[]>(this.baseUrl);
     }
 }

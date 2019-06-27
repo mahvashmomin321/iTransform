@@ -30,7 +30,7 @@ describe('Course Service', () => {
                 expect(data[0].courseName).toEqual('Core Java');
                 expect(data[0].courseChapter[0].chapterName).toEqual('Java Basics');
             });
-            const req = httpMock.expectOne('http://localhost:8083/user');
+            const req = httpMock.expectOne('http://localhost:8084/course');
             expect(req.request.method).toBe('GET');
         });
     });

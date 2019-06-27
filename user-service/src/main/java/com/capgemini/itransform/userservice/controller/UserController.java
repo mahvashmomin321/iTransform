@@ -43,6 +43,10 @@ public class UserController {
 		return new ResponseEntity<User>(user1, HttpStatus.CREATED);
 	}
 	
+	@GetMapping("/user")
+	public ResponseEntity<List<User>> getAllUser(){
+	return new ResponseEntity<List<User>>(service.getAllUsers(),HttpStatus.OK);	
+	}
 	
 	@GetMapping("/user/{userName}/{password}")
 	public ResponseEntity<User> getUserByUserName(@PathVariable String userName,@PathVariable String password){

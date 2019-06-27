@@ -17,14 +17,17 @@ export class CourseComponent implements OnInit{
     ngOnInit(): void {
         this.user = JSON.parse(sessionStorage.getItem("user"));
         // this.courses = this.user.course;
-        
+        console.log(this.user)
         for(let i =0;i<this.user.course.length;i++){
             this.courseId = this.user.course[i].courseId;
             console.log(this.courseId);
-            this.courseService.getCourseById(this.courseId).subscribe((data) =>{
-                this.course = data;
-                this.courses.push(this.course);
-            })
+            if(this.courseId != 0){
+                this.courseService.getCourseById(this.courseId).subscribe((data) =>{
+                    this.course = data;
+                    console.log(this.course)
+                    this.courses.push(this.course);
+                })
+            }
         }
 
     }

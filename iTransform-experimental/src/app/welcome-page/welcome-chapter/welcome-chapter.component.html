@@ -9,7 +9,9 @@
             <li class="chap-box">
                 <div class="courseimg">
                     <img src="{{course.courseImage}}" alt="">
-                    <button class="btn btn-primary enroll" routerLink="/signup">Enroll Now</button>
+                    
+                    <div *ngIf=flag ><button class="btn btn-primary enroll" routerLink="/signup/{{course.courseId}}">Enroll Now</button></div>
+                    <div *ngIf=!flag><button class ="btn btn-primary enroll" (click)="addCourse(course.courseId)">Add Course</button></div>                    
                 </div>
                 <div class="coursed">
                         <div id="accordion">

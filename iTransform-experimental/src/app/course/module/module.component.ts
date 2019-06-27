@@ -116,9 +116,13 @@ export class ModuleComponent implements OnInit {
                 }
             }
         }
-        for(let i=0;i<this.user.course.length;i++){
-            if(this.user.course[i].courseId == this.courseId){
-                this.count=this.user.course[i].moduleComplete.length
+        for (let i = 0; i < this.user.course.length; i++) {
+            if (this.user.course[i].courseId == this.courseId) {
+                if(this.user.course[i].moduleComplete.includes("0")){
+                    this.count = 0;
+                }else{
+                    this.count = this.user.course[i].moduleComplete.length;
+                }
             }
         }
         this.total = this.moduleCount + this.quizCount;
@@ -182,9 +186,13 @@ export class ModuleComponent implements OnInit {
                 }
             }
         }
-        for(let i=0;i<this.user.course.length;i++){
-            if(this.user.course[i].courseId == this.courseId){
-                this.count=this.user.course[i].moduleComplete.length
+        for (let i = 0; i < this.user.course.length; i++) {
+            if (this.user.course[i].courseId == this.courseId) {
+                if(this.user.course[i].moduleComplete.includes("0")){
+                    this.count = 0;
+                }else{
+                    this.count = this.user.course[i].moduleComplete.length;
+                }
             }
         }
         this.total = this.moduleCount + this.quizCount;

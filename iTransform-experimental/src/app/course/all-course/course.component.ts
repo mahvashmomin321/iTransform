@@ -22,7 +22,6 @@ export class CourseComponent implements OnInit{
             this.courseId = this.user.course[i].courseId;
             console.log(this.courseId)
             this.courseService.getCourseById(this.courseId).subscribe((data) =>{
-               alert("working")
                 this.course = data;
                 this.courses.push(this.course);
             })

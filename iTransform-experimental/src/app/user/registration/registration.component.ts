@@ -24,10 +24,11 @@ export class RegistrationComponent {
     cours:Course;
     registrationForm : FormGroup;
     submitted = false;
-    courseId=101;
+    courseId:number=101;
     array:Array<Course> = [];
 
     ngOnInit(){
+        console.log(this.courseId)
         this.cours = new Course;
         this.user = new User();
         this.userService.getAllCourses().subscribe((data) =>{
@@ -53,7 +54,8 @@ export class RegistrationComponent {
         // this.user.course = this.course;
         console.log(this.user.course);
         //Object.assign(this.user, this.registrationForm.value);
-        this.userService.addNewUser(this.registrationForm.value,101).subscribe((data) => {
+        
+        this.userService.addNewUser(this.registrationForm.value,this.courseId).subscribe((data) => {
             this.user = data;
             console.log(this.user)
             alert("working")
@@ -68,9 +70,7 @@ export class RegistrationComponent {
             // }
            
 
-            this.courseService.updateUserCourse(this.user).subscribe((data) => {
-                alert("working")
-                //tslint:disable-next-line:max-line-length
+                 //tslint:disable-next-line:max-line-length
                 if(this.user.contactNumber == 0 && this.user.name == '' && this.user.email=='' && this.user.password=="" && this.user.userName==""){
                     alert("Registration is unsuccessful");
                 }
@@ -83,7 +83,7 @@ export class RegistrationComponent {
             })
 
             
-        })
+        
 
     }
 

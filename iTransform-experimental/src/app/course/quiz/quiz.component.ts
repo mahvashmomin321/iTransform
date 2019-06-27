@@ -35,6 +35,9 @@ export class QuizComponent implements OnInit {
     correct: boolean = false;
     total = 0;
 
+    reply:string;
+    replyBool:boolean=false;
+
     constructor(private courseService: CourseService,
         private route: ActivatedRoute,
         private router: Router) { }
@@ -124,7 +127,11 @@ export class QuizComponent implements OnInit {
                 }
                 for (let i = 0; i < this.user.course.length; i++) {
                     if (this.user.course[i].courseId == this.courseId) {
-                        this.count = this.user.course[i].moduleComplete.length
+                        if(this.user.course[i].moduleComplete.includes("0")){
+                            this.count = 0;
+                        }else{
+                            this.count = this.user.course[i].moduleComplete.length;
+                        }
                     }
                 }
                 this.total = this.moduleCount + this.quizCount;
@@ -143,7 +150,7 @@ export class QuizComponent implements OnInit {
         for (let i = 0; i < this.user.course.length; i++) {
             if (this.user.course[i].courseId == this.courseId) {
                 if (this.user.course[i].moduleComplete.includes(this.chapterId + "" + this.quizId + "q")) {
-
+                    alert("already completed")
                 } else {
                     if (this.quiz.answer == this.option) {
                         this.user.course[i].moduleComplete.push(this.chapterId + "" + this.quizId + "q");
@@ -161,6 +168,7 @@ export class QuizComponent implements OnInit {
                             this.next();
                         })
                     } else {
+                        alert("this answer is not correct")
                         if (this.user.course[i].moduleComplete.includes(this.chapterId + "" + this.quizId + "q")) {
                             this.correct = true;
                         } else {
@@ -204,7 +212,11 @@ export class QuizComponent implements OnInit {
         }
         for (let i = 0; i < this.user.course.length; i++) {
             if (this.user.course[i].courseId == this.courseId) {
-                this.count = this.user.course[i].moduleComplete.length
+                if(this.user.course[i].moduleComplete.includes("0")){
+                    this.count = 0;
+                }else{
+                    this.count = this.user.course[i].moduleComplete.length;
+                }
             }
         }
         this.total = this.moduleCount + this.quizCount;

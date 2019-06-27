@@ -7,7 +7,10 @@
                 <h2>{{course.courseName}}</h2>
             </li>
             <li class="chap-box">
-                <div class="courseimg"><img src="{{course.courseImage}}" alt=""></div>
+                <div class="courseimg">
+                    <img src="{{course.courseImage}}" alt="">
+                    <button class="btn btn-primary enroll" routerLink="/signup">Enroll Now</button>
+                </div>
                 <div class="coursed">
                         <div id="accordion">
                                 <div  *ngFor="let chapter of course.courseChapter; let i=index" class="chap">

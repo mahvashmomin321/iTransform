@@ -22,7 +22,7 @@ export class AppComponent implements OnInit{
     console.log(this.user);
     document.getElementById('loginbtn').style.display = 'none';
     document.getElementById('signupbtn').style.display = 'none';
-    document.getElementById('coursebtn').style.display= 'none';
+    
 }
   }
 

@@ -51,6 +51,11 @@ li {
 
 .courseimg {
     width: 20%;
+    text-align: center;
+}
+
+.enroll{
+    margin-top: 20px;
 }
 
 .courseimg img {

@@ -42,7 +42,7 @@ export class RegistrationComponent {
             name: ['', Validators.required],
             email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
             contactNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-            password: ['', [Validators.required]]
+            password: ['', [ Validators.required, Validators.pattern('^(?=.*[0-9]).{8}$')]]
         });
     }
 

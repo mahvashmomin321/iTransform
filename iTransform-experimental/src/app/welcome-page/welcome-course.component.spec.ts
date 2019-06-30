@@ -1,12 +1,13 @@
 import { WelcomeCourseComponent } from "./welcome-course.component";
 import { Component } from '@angular/compiler/src/core';
-import { ComponentFixture, async, TestBed } from '@angular/core/testing';
+import { ComponentFixture, async, TestBed, inject } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { CourseService } from '../course/course.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('Welcome Course Component', ()=> {
     let component: WelcomeCourseComponent;
@@ -22,6 +23,7 @@ describe('Welcome Course Component', ()=> {
             imports: [
                 BrowserModule,
                 FormsModule,
+                HttpClientTestingModule,
                 HttpClientModule,
                 RouterTestingModule
             ],
@@ -41,21 +43,35 @@ describe('Welcome Course Component', ()=> {
     it('should create the component', ()=> {
         expect(component).toBeTruthy();
     });
-    it('should return list of courses', ()=> {
+    // tslint:disable-next-line:max-line-length
+    it('should return list of courses', inject([HttpTestingController, CourseService], (httpMock: HttpTestingController, service: CourseService) => {
         fixure.detectChanges();
-        console.log(component.courses);
-        const cards = de.queryAll( By.css('.course-card'));
-        expect(cards).toBeTruthy();
-        expect(cards.length).toBe(0);
-    });
+        service.findAllCourses().subscribe((data) => {
+            const cards = de.queryAll( By.css('.course-card'));
+            expect(cards).toBeTruthy();
+            expect(cards.length).toBe(2);
+            expect(data.length).toBe(2);
+        });
+        // const req = httpMock.expectOne('http://localhost:8084/course');
+        // expect(req.request.method).toEqual('GET');
+        // req.flush(this.data);
+    }));
 
-    it('should test OnInit function',() => {
+    it('should test OnInit function', () => {
         spyOn(component, 'ngOnInit').and.callThrough();
         expect(component.ngOnInit).toBeTruthy();
         expect(component.ngOnInit).toBeDefined();
     });
 
-    it('should display the first Course', ()=> {
-
-    })
+    // tslint:disable-next-line:max-line-length
+    it('should display the first Course', inject([HttpTestingController, CourseService], (httpMock: HttpTestingController, service: CourseService) => {
+        fixure.detectChanges();
+        service.findAllCourses().subscribe((data) => {
+            component.courses = data;
+            const card = de.query(By.css('.course-card:first-child'));
+            const courseName = card.query(By.css('.course-name'));
+            expect(card).toBeTruthy();
+            expect(courseName.nativeElement.textContent).toBe(data[0].courseName);
+        });
+    }));
 });

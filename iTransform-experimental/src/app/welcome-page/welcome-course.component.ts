@@ -22,6 +22,7 @@ export class WelcomeCourseComponent implements OnInit {
         // tslint:disable-next-line:prefer-for-of
         this.courseService.findAllCourses().subscribe((data) => {
                 this.courses = data;
+                console.log(data);
         });
 
     }

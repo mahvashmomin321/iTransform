@@ -73,5 +73,43 @@ describe('Welcome Course Component', ()=> {
             expect(card).toBeTruthy();
             expect(courseName.nativeElement.textContent).toBe(data[0].courseName);
         });
+        
     }));
+
+    beforeEach(() => {
+        let store = {};
+
+        spyOn(sessionStorage, 'getItem').and.callFake( (key: string): String => {
+         return store[key] || null;
+        });
+        spyOn(sessionStorage, 'removeItem').and.callFake((key: string): void =>  {
+          delete store[key];
+        });
+        spyOn(sessionStorage, 'setItem').and.callFake((key: string, value: string): string =>  {
+          // tslint:disable-next-line:no-angle-bracket-type-assertion
+          return store[key] = <string> value;
+        });
+        spyOn(sessionStorage, 'clear').and.callFake(() =>  {
+            store = {};
+        });
+
+    });
+
+    it('should set an item', () => {
+            // tslint:disable-next-line:max-line-length
+            expect(sessionStorage.setItem('user', 'contactNumber: 887949498 ,course: [],email: \"mah@gmail.com\",name: \"mah\",password: \"mahvash2\",userName: \"mah\"'))
+            .toBe('contactNumber: 887949498 ,course: [],email: \"mah@gmail.com\",name: \"mah\",password: \"mahvash2\",userName: \"mah\"');
+            expect(sessionStorage.getItem('user'))
+            .toBe('contactNumber: 887949498 ,course: [],email: \"mah@gmail.com\",name: \"mah\",password: \"mahvash2\",userName: \"mah\"');
+        });
+
+    it('should set and remove Item', () => {
+        // tslint:disable-next-line:max-line-length
+        expect(sessionStorage.setItem('user', 'contactNumber: 887949498 ,course: [],email: \"mah@gmail.com\",name: \"mah\",password: \"mahvash2\",userName: \"mah\"'))
+        .toBe('contactNumber: 887949498 ,course: [],email: \"mah@gmail.com\",name: \"mah\",password: \"mahvash2\",userName: \"mah\"');
+        expect(localStorage.removeItem('user')).toBeUndefined(); // undefined
+        expect(sessionStorage.getItem('user'))
+            .toBe('contactNumber: 887949498 ,course: [],email: \"mah@gmail.com\",name: \"mah\",password: \"mahvash2\",userName: \"mah\"');
+          });
+    
 });

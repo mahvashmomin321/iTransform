@@ -7,37 +7,46 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
-import { CourseComponent } from './course.component';
 import { CourseService } from '../course.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressBarModule } from '@angular/material';
+import { QuizComponent } from './quiz.component';
+import { SafePipe } from '../module/module.component';
 
-describe(' Course Component', ()=> {
-    let component: CourseComponent;
-    let fixure: ComponentFixture<CourseComponent>;
+describe(' Quiz Component', ()=> {
+    let component: QuizComponent;
+    let fixure: ComponentFixture<QuizComponent>;
     let de: DebugElement;
     let el: HTMLElement;
     let courseService: CourseService;
+    let route:ActivatedRoute;
+    let router:Router;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                CourseComponent
+                QuizComponent,
+                SafePipe
             ],
             imports: [
                 BrowserModule,
                 FormsModule,
                 HttpClientTestingModule,
                 HttpClientModule,
-                RouterTestingModule
+                RouterTestingModule,
+                BrowserAnimationsModule,
+                MatProgressBarModule,
             ],
             providers: [
                 CourseService
             ]
         }).compileComponents().then(() =>{
-            fixure = TestBed.createComponent(CourseComponent);
+            fixure = TestBed.createComponent(QuizComponent);
             component = fixure.componentInstance;
             de = fixure.debugElement;
             // tslint:disable-next-line:no-unused-expression
             component.ngOnInit;
-            component = new CourseComponent(courseService);
+            component = new QuizComponent(courseService,route,router);
         });
     }));
 

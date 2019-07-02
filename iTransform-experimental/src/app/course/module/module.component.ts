@@ -24,7 +24,7 @@ export class ModuleComponent implements OnInit {
     
     constructor(private courseService: CourseService,
         private route: ActivatedRoute,
-        private router: Router, private sanitizer: DomSanitizer) { }
+        private router: Router) { }//, private sanitizer: DomSanitizer
 
     course: Courses;
     chapters: CourseChapter[]

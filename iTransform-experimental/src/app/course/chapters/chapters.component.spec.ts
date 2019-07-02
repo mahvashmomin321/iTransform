@@ -7,19 +7,21 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
-import { CourseComponent } from './course.component';
 import { CourseService } from '../course.service';
+import { ChaptersComponent } from './chapters.component';
+import { ActivatedRoute } from '@angular/router';
 
-describe(' Course Component', ()=> {
-    let component: CourseComponent;
-    let fixure: ComponentFixture<CourseComponent>;
+describe(' Chapter Component', ()=> {
+    let component: ChaptersComponent;
+    let fixure: ComponentFixture<ChaptersComponent>;
     let de: DebugElement;
     let el: HTMLElement;
     let courseService: CourseService;
+    let route:ActivatedRoute;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                CourseComponent
+                ChaptersComponent
             ],
             imports: [
                 BrowserModule,
@@ -32,12 +34,12 @@ describe(' Course Component', ()=> {
                 CourseService
             ]
         }).compileComponents().then(() =>{
-            fixure = TestBed.createComponent(CourseComponent);
+            fixure = TestBed.createComponent(ChaptersComponent);
             component = fixure.componentInstance;
             de = fixure.debugElement;
             // tslint:disable-next-line:no-unused-expression
             component.ngOnInit;
-            component = new CourseComponent(courseService);
+            component = new ChaptersComponent(courseService,route);
         });
     }));
 

@@ -7,37 +7,45 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
-import { CourseComponent } from './course.component';
 import { CourseService } from '../course.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ModuleComponent, SafePipe } from './module.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressBarModule } from '@angular/material';
 
-describe(' Course Component', ()=> {
-    let component: CourseComponent;
-    let fixure: ComponentFixture<CourseComponent>;
+describe(' Module Component', ()=> {
+    let component: ModuleComponent;
+    let fixure: ComponentFixture<ModuleComponent>;
     let de: DebugElement;
     let el: HTMLElement;
     let courseService: CourseService;
+    let route:ActivatedRoute;
+    let router:Router;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                CourseComponent
+                ModuleComponent,
+                SafePipe
             ],
             imports: [
                 BrowserModule,
                 FormsModule,
                 HttpClientTestingModule,
                 HttpClientModule,
-                RouterTestingModule
+                RouterTestingModule,
+                BrowserAnimationsModule,
+                MatProgressBarModule,
             ],
             providers: [
                 CourseService
             ]
         }).compileComponents().then(() =>{
-            fixure = TestBed.createComponent(CourseComponent);
+            fixure = TestBed.createComponent(ModuleComponent);
             component = fixure.componentInstance;
             de = fixure.debugElement;
             // tslint:disable-next-line:no-unused-expression
             component.ngOnInit;
-            component = new CourseComponent(courseService);
+            component = new ModuleComponent(courseService,route,router);
         });
     }));
 

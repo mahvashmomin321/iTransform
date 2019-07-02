@@ -28,24 +28,13 @@ export class LoginComponent implements OnInit {
                 password : ['', Validators.required]
             });
         }
-        // onSubmit1() {
-        //     console.log(this.loginForm.value);
-        //     if (this.loginForm.valid) {
-        //         this.loggedIn.emit(
-        //             // new User(this.loginForm.value.email,this.loginForm.value.password)
-        //         );
-        //     }
-        // }
+        
     onSubmit() {
-        this.userService.getUserAuthentication(this.auth.userName, this.auth.password).subscribe((data) => {
+        this.userService.getUserAuthentication(this.loginForm.value.userName, this.loginForm.value.password).subscribe((data) => {
             this.user = data;
             console.log(data);
             if (this.user != null) {
-                    // setting session storage
                     sessionStorage.setItem("user", JSON.stringify(this.user));
-                    // console.log(JSON.parse(sessionStorage.getItem("user")));
-                    // document.getElementById('loginbtn').style.display = 'none';
-                    // document.getElementById('signupbtn').style.display = 'none';
                     this.router.navigate(['/courses']);
                     window.location.href = '/courses';
             } else {

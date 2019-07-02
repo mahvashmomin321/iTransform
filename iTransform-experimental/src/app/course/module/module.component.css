@@ -83,3 +83,7 @@
     background: #3a71b5;
     border : 1px solid #3a71b5;
 }
+
+.progress-bar {
+    height: 23px;
+}

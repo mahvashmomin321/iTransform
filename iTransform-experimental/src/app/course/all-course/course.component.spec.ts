@@ -74,6 +74,7 @@ describe(' Course Component', ()=> {
 
     });
 
+
     it('should set an item', () => {
             // tslint:disable-next-line:max-line-length
             expect(sessionStorage.setItem('user', 'contactNumber: 887949498 ,course: [],email: \"mah@gmail.com\",name: \"mah\",password: \"mahvash2\",userName: \"mah\"'))
@@ -90,4 +91,19 @@ describe(' Course Component', ()=> {
         expect(sessionStorage.getItem('user'))
             .toBe('contactNumber: 887949498 ,course: [],email: \"mah@gmail.com\",name: \"mah\",password: \"mahvash2\",userName: \"mah\"');
           });
+
+    // tslint:disable-next-line:max-line-length
+    // it('should display all courses', inject([HttpTestingController, CourseService], (httpMock: HttpTestingController, service: CourseService) => {
+    //         fixure.detectChanges();
+    //         service.getCourseById(101).subscribe((data) => {
+    //                 component.course = data;
+    //                 const card = de.query(By.css('.course-card'));
+    //                 const courseName = card.query(By.css('.course-name'));
+    //                 expect(card).toBeTruthy();
+    //                 expect(courseName.nativeElement.textContent).toBe(data[0].courseName);
+    
+    
+    //         });  
+    
+    //     }));
 });

@@ -42,7 +42,7 @@ describe('Registration Form', () => {
         });
     }));
     it('form data should be valid', async(() => {
-        comp.registrationForm.controls.userName.setValue('mahv');
+        comp.registrationForm.controls['userName'].setValue('mahv');
         comp.registrationForm.controls['name'].setValue('mah');
         comp.registrationForm.controls['email'].setValue('mah@gmail.com');
         comp.registrationForm.controls['contactNumber'].setValue('8879494986');

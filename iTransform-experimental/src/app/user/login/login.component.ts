@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
             console.log(this.user)
             this.loginForm = this.fb.group({
                 userName : ['', Validators.required],
-                password : ['', Validators.required]
+                password : ['', [ Validators.required, Validators.pattern('^(?=.*[0-9]).{8}$')]]
             });
         }
         
@@ -46,5 +46,8 @@ export class LoginComponent implements OnInit {
 
 
     }
+
+    get userName() { return this.loginForm.get("userName"); }
+    get password() { return this.loginForm.get("password"); }
 
 }

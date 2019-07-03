@@ -89,10 +89,8 @@ describe('Login Form', () => {
     // comp = new LoginComponent(fb, userService, router);
     // tslint:disable-next-line:max-line-length
     it('submiting a form emits an user',  inject([HttpTestingController, UserService], (httpMock: HttpTestingController, service: UserService )=> {
-        let userName= comp.loginForm.controls['userName'];
-        userName.setValue('mah');
-        let password= comp.loginForm.controls['password'];
-        password.setValue('mahvash2');
+        comp.loginForm.controls['userName'].setValue('mah');
+        comp.loginForm.controls['password'].setValue('mahvash2');
         expect(comp.loginForm.valid).toBeTruthy();
 
         let user: User;
@@ -100,10 +98,11 @@ describe('Login Form', () => {
         service.getUserAuthentication('mah', 'mahvash2').subscribe((value) => {
             this.user = value;
             console.log(user.userName);
+            expect(user.userName).toBe('mah');
+            expect(user.password).toBe('mahvash2');
         });
         comp.onSubmit();
-        expect(user.userName).toBe('mah');
-        expect(user.password).toBe('mahvash2');
+        
 
     }));
 

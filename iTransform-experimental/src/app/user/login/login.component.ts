@@ -30,19 +30,23 @@ export class LoginComponent implements OnInit {
         }
         
     onSubmit() {
-        this.userService.getUserAuthentication(this.loginForm.value.userName, this.loginForm.value.password).subscribe((data) => {
-            this.user = data;
-            console.log(data);
-            if (this.user != null) {
-                    sessionStorage.setItem("user", JSON.stringify(this.user));
-                    this.router.navigate(['/courses']);
-                    window.location.href = '/courses';
-            } else {
-                alert('please enter correct userName and password');
-                this.router.navigate(['/login']);
-            }
-
-        });
+        if(this.loginForm.value.userName == "admin" && this.loginForm.value.password == "admin"){
+            this.router.navigate(['/adminwelcome']);
+        }else{
+            this.userService.getUserAuthentication(this.loginForm.value.userName, this.loginForm.value.password).subscribe((data) => {
+                this.user = data;
+                console.log(data);
+                if (this.user != null) {
+                        sessionStorage.setItem("user", JSON.stringify(this.user));
+                        this.router.navigate(['/courses']);
+                        window.location.href = '/courses';
+                } else {
+                    alert('please enter correct userName and password');
+                    this.router.navigate(['/login']);
+                }
+    
+            });
+        }
 
 
     }

@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
         }
         
     onSubmit() {
-        if(this.loginForm.value.userName == "admin" && this.loginForm.value.password == "admin"){
+        if(this.loginForm.value.userName == "admin" && this.loginForm.value.password == "admin123"){
             this.router.navigate(['/adminwelcome']);
         }else{
             this.userService.getUserAuthentication(this.loginForm.value.userName, this.loginForm.value.password).subscribe((data) => {

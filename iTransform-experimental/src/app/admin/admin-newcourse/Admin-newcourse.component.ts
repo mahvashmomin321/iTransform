@@ -5,9 +5,9 @@ import { Course } from 'src/app/user/user';
 
 
 @Component({
-    templateUrl:'./admin-welcome.component.html',
+    templateUrl:'./admin-newcourse.component.html',
 })
-export class AdminWelcomeComponent implements OnInit{
+export class AdminNewCourseComponent implements OnInit{
 
     course:Course;
 
@@ -18,5 +18,9 @@ export class AdminWelcomeComponent implements OnInit{
 
     }
 
-    
+    addNewCourse(){
+        this.adminService.addNewCourse(this.course).subscribe((data) =>{
+            this.course = data;
+        })
+    }
 }

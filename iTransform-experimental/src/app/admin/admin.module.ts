@@ -10,10 +10,12 @@ import { UserModule } from '../user/user.module';
 import { RouterModule } from '@angular/router';
 import { AdminService } from './admin.service';
 import { AdminWelcomeComponent } from './admin-welcome/admin-welcome.component';
+import { AdminNewCourseComponent } from './admin-newcourse/Admin-newcourse.component';
 
 @NgModule({
   declarations: [
-      AdminWelcomeComponent
+      AdminWelcomeComponent,
+      AdminNewCourseComponent
   ],
   imports: [
     BrowserModule,
@@ -22,14 +24,16 @@ import { AdminWelcomeComponent } from './admin-welcome/admin-welcome.component';
     CommonModule,
     BrowserAnimationsModule,
     UserModule,
-    RouterModule.forChild(adminRoute),
     ReactiveFormsModule,
+    RouterModule.forChild(adminRoute)
+
   ],
   providers: [
       AdminService
   ],
   exports:[
-    AdminWelcomeComponent
+    AdminWelcomeComponent,
+    AdminNewCourseComponent
   ]
 })
-export class AppModule { }
+export class AdminModule { }

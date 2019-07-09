@@ -10,12 +10,14 @@ import { UserModule } from '../user/user.module';
 import { RouterModule } from '@angular/router';
 import { AdminService } from './admin.service';
 import { AdminWelcomeComponent } from './admin-welcome/admin-welcome.component';
-import { AdminNewCourseComponent } from './admin-newcourse/Admin-newcourse.component';
+import { AdminNewCourseComponent } from './admin-newcourse/admin-newcourse.component';
+
 
 @NgModule({
   declarations: [
       AdminWelcomeComponent,
       AdminNewCourseComponent
+     
   ],
   imports: [
     BrowserModule,
@@ -34,6 +36,7 @@ import { AdminNewCourseComponent } from './admin-newcourse/Admin-newcourse.compo
   exports:[
     AdminWelcomeComponent,
     AdminNewCourseComponent
+    
   ]
 })
 export class AdminModule { }

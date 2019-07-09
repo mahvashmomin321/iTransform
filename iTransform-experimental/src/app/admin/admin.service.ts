@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Course } from '../user/user';
 import { Observable } from 'rxjs';
+import { Courses } from 'src/app/course/course';
 
 
 
@@ -12,8 +12,8 @@ export class AdminService{
 
     constructor(private http:HttpClient){}
         
-    addNewCourse(course:Course):Observable<Course>{
-        return this.http.post<Course>(this.baseUrl,course);
+    addNewCourse(course: Courses):Observable<Courses[]>{
+        return this.http.post<Courses[]>(this.baseUrl, course);
     }
 
 }
